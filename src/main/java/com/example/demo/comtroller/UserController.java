@@ -158,7 +158,7 @@ public class UserController {
     @Test
     public void testStreamPartition(){
         Map<Boolean, List<Student>> sing = students.stream().collect(Collectors.partitioningBy(s -> s.getSpecialities().contains("sing")));
-        Map<Boolean, List<Student>> collect = students.stream().collect(Collectors.groupingBy(s -> s.getSpecialities()));
+        Map<String, List<Student>> collect = students.stream().collect(Collectors.groupingBy(s -> s.getSpecialities()));
         System.out.println(sing);
     }
     @Data
