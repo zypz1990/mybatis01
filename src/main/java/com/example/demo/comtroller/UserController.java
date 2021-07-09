@@ -1,14 +1,18 @@
 package com.example.demo.comtroller;
 
 import com.example.demo.entity.User;
+import com.example.demo.service.MyCacheService;
 import com.example.demo.service.UserService;
 import lombok.Data;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
+import java.math.BigDecimal;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -17,11 +21,13 @@ import java.util.stream.Stream;
  * @author 张彦培
  * @date 2021/2/2517:15
  */
-//@RestController
-//@RequestMapping("/users")
+@RestController
+@RequestMapping("/users")
 public class UserController {
     @Autowired
     private UserService userService;
+    @Autowired
+    private MyCacheService myCacheService;
 
     /**
      * @Description todo
@@ -31,13 +37,19 @@ public class UserController {
      * @Date 17:23 2021/2/25
      */
     @GetMapping("/getUserById")
-    public User getUserById(@RequestParam Integer id) {
-        return userService.getUserById(id);
+    public User getUserById(@RequestParam Integer id)
+    {
+        System.out.println("----进入leok");
+       return myCacheService.getUserById(8);
+//        return userService.getUserById(id);
     }
+
+
 
     @GetMapping("/getUserList")
     public List<User> getUserList() {
-        return userService.getUserList();
+        List<User> userList = userService.getUserList();
+        return userList;
     }
 
     public static void main(String[] args) {
@@ -128,6 +140,14 @@ public class UserController {
                         new Student("雷利", 48, 176)))
                 .flatMap(students1 -> students1.stream()).collect(Collectors.toList());
         System.out.println(studentList);
+    }
+    @Test
+    public void testCompareTo(){
+        BigDecimal bigdecimal = new BigDecimal("7");
+        BigDecimal bigdecimal1 = new BigDecimal("7");
+        int i = bigdecimal.compareTo(bigdecimal1);
+        System.out.println(i);
+//        System.out.println("aaaa".compareTo("aaad"));
     }
     @Test
     public void testStreamMax(){

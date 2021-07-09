@@ -19,6 +19,7 @@ public class UserService {
        return userMapper.getUserById(id);
     }
     public List<User> getUserList(){
-        return userMapper.getUserList();
+        List<User> userList = userMapper.getUserList();
+        return userList;
     }
 }
